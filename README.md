@@ -60,9 +60,6 @@ Importante seguir los pasos uno a uno.
 > [!NOTE]
 > Recordar que en window las mayúsculas no tienen relevancia, pero si en Linux
 
-> [!NOTE]
-> Useful information that users should know, even when skimming content.
-
 Revisar y ejecutar cada comando, hacerlo como practica.
 
 ## CLASE MIÉRCOLES 3 DE ABRIL DEL 2024
@@ -80,7 +77,7 @@ Una vez creado, abrirlo y escribir unas líneas dentro.Ctrl + S para guardar lo 
 - ``!72 + enter`` Veremos el comando que utilizamos en ese número
 - ``rm nombre-archivo.txt`` Borra el archivo seleccionado.
 
-> [!ADVERTENCIA]
+> [!WARNING]
 > La acción ``rm nombre-archivo.txt`` no se puede deshacer.
 
 - ``rm --help`` Muestra como funciona el comando
@@ -105,7 +102,7 @@ Realizada la ejecución de cada comando en el orden especificado.
 15. Para configurar un nombre se usuario en Git, escribir lo siguiente en la terminal: ``git config --global user.name "Tu Nombre Completo". Dentro de las comillas dobles colocar tu nombre completo.``
 16. De la misma forma que antes, vamos a establecer un valor para el correo en Git con el siguiente comando: ``git config --global user.email "tu_correo@correo.com"``.  Dentro de las comillas dobles colocar tu correo personal.
 
-> [!Importante]
+> [!IMPORTANT]
 > Colocar un correo válido y personal, ya que utilizaremos el mismo para crear una cuenta en [GitHub](https://github.com/).
 
 17. Listamos nuevamente las configuraciones de Git con ``git config --list`` y veremos que ya están todos nuestros datos completos.
