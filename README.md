@@ -57,8 +57,11 @@ Importante seguir los pasos uno a uno.
 8. ``mkdir Java``
 9. ``mkdir JavaScript``
 
-> [!NOTA]
+> [!NOTE]
 > Recordar que en window las mayúsculas no tienen relevancia, pero si en Linux
+
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
 
 Revisar y ejecutar cada comando, hacerlo como practica.
 
