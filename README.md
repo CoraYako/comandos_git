@@ -15,13 +15,20 @@ Cohorte: 2024
 
 A continuación se detalla lo visto en cada clase de Git y comandos de Terminal en la Tecnicatura Universitaria en Programación de la [UTN Facultad Regional San Rafael](https://www.frsr.utn.edu.ar/). Utilice el índice debajo para navegar entre las clases impartidas.
 
-* [Clase Miércoles 27 de Marzo del 2024](#clase-miércoles-27-de-marzo-del-2024)
+* [CLASE MIÉRCOLES 27 DE MARZO DEL 2024](#clase-miércoles-27-de-marzo-del-2024)
     * [Clase Anterior](#lo-que-vimos-en-la-clase-anterior)
     * [Creación de Carpetas](#ahora-comenzamos-con-la-creación-de-carpetas)
-* [Clase Miércoles 3 de Abril del 2024](#clase-miércoles-3-de-abril-del-2024)
+* [CLASE MIÉRCOLES 3 DE ABRIL DEL 2024](#clase-miércoles-3-de-abril-del-2024)
     * [Crear Repositorio Git](#crea-un-repositorio-de-git-y-haz-tui-primer-commit)
-* [Clase Miércoles 10 de Abril del 2024](#clase-miércoles-10-de-abril-del-2024)
+* [CLASE MIÉRCOLES 10 DE ABRIL DEL 2024](#clase-miércoles-10-de-abril-del-2024)
     * [Analizar Cambios en los Archivos de tu Proyecto Git](#analizar-cambios-en-los-archivos-del-proyecto-git)
+* [CLASE MIÉRCOLES 17 DE ABRIL DEL 2024](#clase-miércoles-17-de-abril-del-2024)
+    * [Analizar cambios en los archivos](#analizar-cambios-en-los-archivos-de-tu-proyecto-git)
+* [CLASE MIÉRCOLES 24 DE ABRIL DEL 2024](#clase-miércoles-24-de-abril-del-2024)
+    * [¿Qué es el Staging?](#¿qué-es-el-staging)
+    * [¿Qué es Gitflow?](#¿qué-es-gitflow)
+    * [¿Qué es Branch y cómo funciona un Merge en Git?](#¿qué-es-branch-y-cómo-funciona-un-merge-en-git)
+
 ## CLASE MIÉRCOLES 27 DE MARZO DEL 2024
 ### Lo que vimos en la clase anterior:
 > Abrimos la terminal de **Git Bash** en **Windows** o la terminal de **Ubuntu**, tambien la terminal de **Mac**, y comenzamos con los siguientes comandos y creación de directorios:
@@ -175,3 +182,91 @@ git status
 - ``cd ..`` Para salir de la carpeta actual (Tecnicatura) y volver a la raíz
 
 Revisar y ejecutar cada comando, hacerlo como practica
+
+## CLASE MIÉRCOLES 17 DE ABRIL DEL 2024
+### Analizar cambios en los archivos de tu proyecto Git
+
+Ingresamos de la siguiente manera:
+- Abrir git bash en __Window__ o la terminal de __Linux__ o de __Mac__: al abrir Git Bash hacerlo como administrador, en terminal también o usar sudo para permisos especiales.
+```
+cd tecnicatura
+cd class-git
+ls
+touch historia.txt
+code .
+```
+- Modificamos el archivo historia.txt colocando lo siguiente: 
+> Bienvenido, mi nombre es Ariel (coloca tu nombre)
+
+```ctrl + s
+git status
+git add .
+git status
+git commit (Sin agregar -m veremos que pasa)
+```
+- Agregar mensaje y salir con la tecla ESC o ```:wq! + enter```
+- Agregamos otra línea de mensaje en historia.txt desde VSC:
+> estoy estudiando programación
+
+```
+ctrl + s
+git add .
+git commit
+```
+
+- Se abre un editor de código basado en línea de comandos, editor de texto como VSC llamado __Vim__
+- Esc + i #Para comenzar a escribir mensaje del commit, no suele ser necesario
+- Para salir en linux: ```ctrl + x```
+- Para decir si al cambio y aceptar el nombre, ósea no cambiamos el nombre, la (s) es de si y la (y) es de yes, no olvidar enter en linux: ```s + enter```
+- Vemos todos los cambios en el último commit:
+```
+git show
+git log historia.txt (Vemos todos los commit)
+q (para salir del registro de commits)
+```
+- Copiamos un hash mas antoguo y otro reciente, ingresamos el siguiente comando:
+```
+git diff hash_commit_numerico hash_commit_numerico 
+```
+- Con el comando anterior comparamos diferentes commits y sus cambios. Recuerden poner la versión mas vieja primero, luego la mas nueva.
+- Para salir presionar ```q```
+```
+cd ..
+cd ..
+```
+
+Revisar y ejecutar cada comando, hacerlo como practica
+
+## CLASE MIÉRCOLES 24 DE ABRIL DEL 2024
+### ¿Qué es el _staging_?
+Tienes una carpeta donde están los archivos de tu proyecto o un directorio y allí tenemos el archivo ```historia.txt```. Cuando entramos por consola a ese archivo y creamos el ```git init```, se crea un área en memoria RAM que se llama __staging__, y el otro es el repositorio esta es la carpeta ```.git``` donde estarán todos los cambios al final del proyecto.
+<br>
+Entonces tenemos el área de trabajo, cuando colocamos ```git add historia.txt``` pasamos al __staging__ o área de preparación (recordar que esto es en la memoria RAM) y luego con ```git commit -m "Mensaje"``` pasa al repositorio en la rama ```master/main```. Allí se genera un nombre lleno de letras y números, esto es el hash, el nombre del commit.
+
+### ¿Qué es _Gitflow_?
+Gitflow es un modelo alternativo de creación de ramas en __Git__ en el que se utilizan ramas de función y varias ramas principales. Fue Vincent Driessen en __nvie__ quien lo publicó por primera vez y quien lo popularizó.
+
+### ¿Qué es _branch_ y cómo funciona un _merge_ en git?
+Tenemos una rama llamada ```master``` y es donde están los cambios de nuestros archivos, con cada commit creamos una nueva versión.
+<br>
+Vamos a crear una rama experimental para otras versiones que suele llamarse _development_; al encontrar bug, se crea otra rama que suele llamarse _hotfix_ para hacer reparaciones.
+<br>
+Siempre que ya tengamos resultados favorables, es donde decidimos hacer un _merge_, es unir los resultados de las ramas a la rama ```master```.
+<br>
+La principal característica de las ramas principales es que solo existe una de cada tipo. El objetivo es que no se instancien y que no reciban código de forma directa a través de commit, siempre tienen que recibir código a través de ramas de tipo ```Feature```, ```Release``` y ```Hotfix```, siempre a través de ramas auxiliares.
+<br>
+Es un riesgo recibir código directamente en la rama ```master```, porque puede generar defectos en el repositorio en las subidas a producción, que no contemplemos o que no preveamos, por lo que siempre es mejor integrar código en otras ramas antes de integrar con las ramas ```master``` y ```develop```.
+
+Esta es una metodología estricta pero que da lugar a diferentes interpretaciones o diferentes formas de llevarla en cada equipo, por lo que en algunos casos, algún experto puede permitirse no seguir esa norma, pero son casos muy específicos y siempre de personas de confianza.
+
+En las ramas auxiliares tenemos la rama ```Feature```, la rama ```Release``` y la Rama ```Hotfix```, que puede instanciarse todas las veces que se consideren necesarias. A continuación veremos una introducción de para qué estas ramas existen:
+
+- La rama ```Feature```: para nuevas características, nuevos requisitos o nuevas historias de usuario.
+- La rama ```Release```: para estandarizar o cortar una serie de código que ha estado desarrollándose en la rama Develop, se saca una rama de este tipo, se mergea y ahí se depura.
+- La rama ```Hotfix```: habitualmente se utiliza para depurar el código que venga de producción, por haberse detectado un defecto crítico en producción que deba resolverse, al que se le va a hacer una ```Release``` puntual para corregirlo.
+
+Estas ramas tienen un principio y un fin, ya que son ramas que se _mergean_ con las ramas Master y Develop y desaparecen. Podemos tener tantas ramas como queramos, tantos repositorios como queramos, lo más importante es saber cuando hacemos un merge, porque es posible que hayan archivos que rompan otros archivos, a esto se lo llama conflicto o bug.
+
+Hoy a sido un poco de teoría, repaso de todo lo que les dió la profe Naty.
+
+Profesor Ariel Betancud
