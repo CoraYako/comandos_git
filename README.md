@@ -9,7 +9,7 @@ Asignatura: Programación I GitBash
 <br>
 Profesor: Profesor Ariel Betancud ([GitHub](https://github.com/ArielBetancud22))
 <br>
-Grupo: DinamicDevs
+Grupo: DynamicDevs
 <br>
 Cohorte: 2024
 
