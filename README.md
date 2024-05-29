@@ -270,3 +270,72 @@ Estas ramas tienen un principio y un fin, ya que son ramas que se _mergean_ con 
 Hoy a sido un poco de teoría, repaso de todo lo que les dió la profe Naty.
 
 Profesor Ariel Betancud
+
+## CLASE MIÉRCOLES 8 DE MAYO DEL 2024
+### Volver en el tiempo en nuestro repositorio utilizando `reset` y `checkout`
+
+Ingresamos de la siguiente manera: <br>
+Abrir git bash en Window o la terminal de Linux o de Mac, al abrir Git Bash hacerlo como administrador, en terminal también o usar sudo para permisos especiales.
+
+- `cd tecnicatura` para entrar an la carpeta especificada
+- `cd class-git` para entrar en el directorio especificado
+- `ls` para mostrar todos los archivos que tenemos en dicho directorio
+- ``code .`` para abrir el editor Visual Studio Code desde la terminal y desde la posición especificada
+- ``git log`` para ver los commit hechos hasta ahora
+- Copiar el hash (el número largo que tiene el commit)
+- ``git reset hash-del-commit`` este nos permite volver a una versión anterior. Hay 2 tipos de reset: el _hard_ y el _soft_
+- ``git status`` para ver elestado de nuestra área de trabajo
+- ``git add .`` para agregar los archivos al área de preparación
+- ``git commit -m "Agregamos datos de estudios en historia.txt"`` para commitear los cambios
+- ``git config --list`` para ver la configuración que ya hemos hecho con en nombre y email
+- ``git reset hash-del-commit --hard`` para volver todo a su estado anterior, es el más usado, desaparece todo
+- ``git reset hash-del-commit --soft`` Este es el suave, lo que tengamos en staging segirá allí
+
+Crear un archivo ``portafolio.html`` e introducir código siguiendo los siguiente pasos:
+- ``touch portafolio.html`` para crear el archivo especificado
+- ``html : 5`` esto carga el código básico de html y podamos trabajar. Esto hacerlo en el aqrchivo
+recientemente creado.
+- ``ctrl + s`` para guardar
+- Clic derecho en ``VSC -> Open with Live Server`` para que se abra en el navegador
+- ``git status`` para ver el estado de nuestra área de trabajo
+- ``ls`` para listar todos los archivos del directorio
+- ``ls -al`` para listar nuevamente todos los archivos, incluso los ocultos
+- ``git add .`` para agregar todos al área de preparación
+- ``git status`` para nuevamente comprobr el estado de nuestra área de trabajo
+- ``git commit -m "Agregamos el html para nuestro portafolio"`` para confirmar mediante commit nuestras modificaciones
+- Creamos un archivo ``.css``. Este es un archivo de estilos, para esto creamos una nueva carpeta llamada ``css``
+- ``mkdir css`` para crear la nueva carpeta
+- ``ls`` para listar todos los archivos
+- ``cd css`` para entrar en el nuevo directorio creado
+- ``touch style.css`` para crear un archivo CSS. A continuación, agregamos estilos
+- ``ctrl + s`` para guardar las modificaciones que realizamos en el archivo CSS
+- Abrimos en el navegador y todo esta allí, pero todo esto supuestamente en git no existe.
+- ``git status`` tenemos cosas en el área de trabajo, en staging distintas
+- ``git diff`` para que nos muestre los cambios en memoria ram y en disco
+- ``git add .`` Agregamos todo al staging area
+- ``git status`` para nuevamente ver el working area. Ya esta todo en memoria ram, a git solo le importan los archivos, guarda las carpetas como rutas y automaticamente las crea
+- ``git commit -m "Creamos el css para darle algo de estilo a nuestro portafolio"`` para confirmar los cambios mediante un commit
+- ``git log`` vemos lo nuevo que hemos hecho sin lo que borramos con el reset fuerte
+- hacer cambios en ``historia.txt``
+- Cambiamos la última línea y guardamos con ``ctrl + s`` 
+- ``git diff`` para ver una comparación de los cambios no commiteados en tu área de trabajo con la última versión commiteada (HEAD)
+- ``git commit -am "cambio en la última línea del historia.txt"`` para agregar al staging area y confirmar el commit al mismo tiempo
+- ``git log`` para ver el historial de commits
+- tecla ``q``  para salir
+- ``git log --stat`` veremos los cambios especificos que hicimos en cuales archivos por medio del commit y veremos los cambios en bits
+- Tecla ``q`` para salir de la línea de commits. Ahora queremos ver como era el archivo originalmente, para esto copiamos el nombre del primer commit
+- ``git checkout hash-del-commit historia.txt`` Veremos el archivo en su estado original
+- ``git status`` esto nos sugiere hacer un commit, si lo hacemos borramos todo lo que hicimos antes, debemos seguir con el siguiente commando
+- ``git checkout master historia.txt`` para volver a la versión master del archivo historia.txt, esto es muy peligroso
+- ``git checkout hash-del-commit historia.txt`` Volvemos a hacer esto y cambiamos cosas del archivo
+- ``git commit -am "Reemplazo de una versión por otra de la historia"``
+- ``git log`` Veremos los cambios sin tocar ningun otro archivo, esta es la forma de volver a una versión hacía atrás y llevarla a la cabeza de la master
+- ``cd ..``
+- ``cd ..``
+
+La tarea de hoy, agregar esta clase al README.md con el lenguaje de markdown, como lo hicimos en la clase pasada, luego deben hacer el commit correspondiente al cambio agregado.
+
+Revisar y ejecutar cada comando, hacerlo como practica
+
+Profesor Ariel Betancud
+
