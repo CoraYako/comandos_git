@@ -42,6 +42,10 @@ A continuación se detalla lo visto en cada clase de Git y comandos de Terminal 
 * [CLASE 8 MIÉRCOLES 22 DE MAYO DEL 2024](#clase-8-miércoles-22-de-mayo-del-2024)
     * [Flujo de trabajo básico con un repositorio remoto](#flujo-de-trabajo-básico-con-un-repositorio-remoto)
     * [Comandos para trabajo remoto con GIT](#comandos-para-trabajo-remoto-con-git)
+* [CLASE 9 MIÉRCOLES 29 DE MAYO DEL 2024](#clase-9-miércoles-29-de-mayo-del-2024)
+    * [Introducción a las ramas en Git](#introducción-a-las-ramas-en-git)
+    * [Cómo funcionan las ramas en GIT](#cómo-funcionan-las-ramas-en-git)
+    * [Practica](#practica)
 
 ## CLASE 1 MIÉRCOLES 27 DE MARZO DEL 2024
 ### Lo que vimos en la clase anterior:
@@ -439,3 +443,78 @@ Adicionalmente, tenemos otros comandos que nos sirven para trabajar en proyectos
 - ``git log – index.html`` Busca los commits en un archivo en específico
 - ``git log -S “Por contenido”`` Buscar los commits con el contenido dentro del archivo
 - ``git log > log.txt`` guardar los logs en un archivo ``.txt``
+
+## CLASE 9 MIÉRCOLES 29 DE MAYO DEL 2024
+### Introducción a las ramas en Git
+Cuando entramos en el proyecto veremos que nos encontramos con la rama ``master``, y es a partir de allí que debe saber que esta es la rama madre o rama principal, y las otras ramas se crean para no afectar a la ``master``.
+
+Las ramas (_branches_) son la forma de hacer cambios en nuestro proyecto sin afectar el flujo de trabajo de la rama principal. Esto porque queremos trabajar una parte muy específica de la aplicación o simplemente experimentar.
+
+La cabecera o ``HEAD`` representa la rama y el commit de esa rama donde estamos trabajando. Por defecto, esta cabecera aparecerá en el último commit de nuestra rama principal. Pero podemos cambiarlo al crear una rama (para esto se pueden usar cualquiera de los siguientes comandos:``git branch rama``, ``git checkout -b rama``) o movernos en el tiempo a cualquier otro commit de cualquier otra rama con los comandos ``git reset id-commit``, ``git checkout rama-o-id-commit``.
+
+> ¿Qué es Git? Repasemos:<br>
+> Git es un sistema de versiones, las cuales entre sus principales características nos permite utilizarlo como un repositorio donde guardar diferentes versiones de nustros archivos. Generalmente es usado para dar seguimiento y control del desarrollo de un proyecto a nivel código.
+
+### Cómo funcionan las ramas en GIT
+Las ramas son la manera de hacer cambios en nuestro proyecto sin afectar el flujo de trabajo de la rama principal. Esto porque queremos trabajar una parte muy específica de la aplicación o simplemente experimentar.
+
+- ``git branch nombre-de-la-rama`` Con este comando se genera una nueva rama
+- ``git checkout nombre-de-la-rama`` Con este comando puedes saltar de una rama a otra
+- ``git checkout -b rama`` Genera una rama y nos mueve a ella automáticamente, es decir, es la combinación de git branch y git checkout al mismo tiempo
+- ``git reset id-commit`` Nos lleva a cualquier commit no importa la rama, ya que identificamos el id del tag, eliminando el historial de los commit posteriores al tag seleccionado
+- ``git checkout rama-o-id-commit`` Nos lleva a cualquier commit sin borrar los commit posteriores al tag seleccionado
+
+### Practica
+Mientras estamos en la rama master, vamos a crear una rama paralela y a esta rama la vamos a llamar __segunda__. La vamos a fusionar para ver como queda en la rama master y así entender el flujo de ramas en git.
+<br>
+Al crear otra rama estamos creando una copia de todos los commit que ya tiene la rama master en la nueva rama y todos los cambios que hagamos en ésta, no se verán reflejados en la rama master hasta que las fusionemos con un proceso que se llama _merge_.
+
+- Abrir como adminstrados la terminal o git bash
+- ``cd Tecnicatura``
+- ``cd class-git``
+- ``code .``
+- ctrl + s
+- clic derecho, abrimos en el navegador con Live Server para ver los cambios
+- ``git status``
+- ``git commit -am "mensaje del commit"`` Este solo funciona con archivos creado previamente
+- ``git commit -a -m "Mensaje del commit"`` Esto es lo mismo que el anterior
+- ``git commit -a`` + Enter (se abrira el entorno Vim para editar el mensaje del commit)
+- Escribir el mensaje
+- ctrl + x
+- s + Enter (no cambiar el nombre ni ruta de ubicación)
+- ``git log`` Veremos los cambios guardados
+- q (para salir)
+- ``git log --stat`` Veremos los cambios nombrando cada archivo
+- q (para salir)
+- ``git branch`` Muestra en la rama que estamos, desde aquí crearemos una nueva
+- ``git show`` Muestra el último cambio que hicimos, esto significa que desde el HEAD -> master es que haremos cambios
+- q (para salir)
+- ctrl + l (limpiamos consola)
+- ``git branch segunda`` creamos una nueva rama
+- ``git show`` Nos muestra ahora que esta en el HEAD -> master, cabecera aquí es donde esta apuntando, es decir el último commit esta pegado a dos ramas distintas, aunque todavía estemos en master
+- q (para salir)
+- ``git status`` No hay nada para hacer commit
+- ``git chekout segunda`` Nos movemos hacía otras ramas, en este caso a ``segunda``
+- ``git branch`` veremos en que rama estamos ubicados o ingresando
+- ``git status`` Veremos en que HEAD estamos apuntando
+- Seguimos los pasos del tutor Nicolás Martinez para editar nuetro portafolio web
+- ctrl + s
+- F5 (actualizamos en el navegador para ver los cambios)
+- ``git status`` Veremos el archivo que modificamos
+- ``git add .``
+- ``git commit``
+- En Vim escribimos el mensaje del commit
+- ctrl + x
+- s (para un si)
+- Enter (terminado el mensaje del commit)
+- ``git status`` No hay mas nada para commitear y estamos en la rama segunda
+- ``git show`` Vemos todo lo que cambiamos
+- q (para salir)
+- ``git log`` Nos muestra donde estabamos con la rama master y el HEAD paso a la rama cabecera
+- q (para salir)
+- ``git checkout master`` Volvemos a la rama master, desaparese lo que habíamos hecho
+- ``git log`` No muestra lo que hicimos en el portafolio
+- q (para salir)
+- ``git checkout segunda`` Volvemos a ver todos los cambios que hicimos de nuevo
+
+Revisar y ejecutar cada comando, hacerlo como práctica.
