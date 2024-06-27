@@ -63,6 +63,12 @@ A continuación se detalla lo visto en cada clase de Git y comandos de Terminal 
 * [CLASE 12 MIÉRCOLES 19 DE JUNIO DEL 2024](#clase-12-miércoles-19-de-junio-del-2024)
     * [Cómo funcionan las llaves públicas y privadas](#cómo-funcionan-las-llaves-públicas-y-privadas)
     * [Cómo funciona un mensaje cifrado con llaves públicas y privadas](#cómo-funciona-un-mensaje-cifrado-con-llaves-públicas-y-privadas)
+* [CLASE 13 MIÉRCOLES 26 DE JUNIO DEL 2024](#clase-13-miércoles-26-de-junio-del-2024)
+    * [Configura tus llaves SSH en local](#configura-tus-llaves-ssh-en-local)
+    * [Cómo configurar nuestras llaves SSH en local](#cómo-configurar-nuestras-llaves-ssh-en-local)
+    * [Cómo generar tus llaves SSH](#cómo-generar-tus-llaves-ssh)
+    * [Segundo Factor de Autenticación (2FA)](#segundo-factor-de-autenticación-2fa)
+    * [Añadir un 2FA](#añadir-un-2fa)
 
 ## CLASE 1 MIÉRCOLES 27 DE MARZO DEL 2024
 ### Lo que vimos en la clase anterior:
@@ -689,3 +695,78 @@ Las llaves públicas y privadas nos ayudan a cifrar y descifrar nuestros archivo
 - La persona a la que enviamos el mensaje cifrado puede emplear su llave privada para descifrar el mensaje y ver los archivos.
 
 > Nota: puedes compartir tu llave pública, pero nunca tu llave privada.
+
+## CLASE 13 MIÉRCOLES 26 DE JUNIO DEL 2024
+### Configura tus llaves SSH en local
+Si usamos [GitHub](https://github.com/) solo con usuario y contraseña y un día perdemos nuestra PC, perdemos todo. Nuestras contraseñas y los proyectos de nuestros clientes están todos en riesgo. Esta es la forma en que muchos sitios web son _hackeados_. Para evitar esto tenemos que agregar una capa de seguridad mucho más fuerte.
+<br>
+Es aquí donde podemos comenzar a crear el entorno con llaves __publicas__ y __privadas__. Esto tiene una ventaja, no solo es que nuestra seguridad será más fuerte, si no que ya no tendrás que poner nunca más tu usuario y contraseña.
+
+En nuestra maquina, debemos crear una __llave privada__ y otra __pública__. Una vez creada la __llave pública__, se la enviamos a GitHub en nuestro repositorio, y le decimos: 
+> _para este repositorio quiero que uses esta llave pública de mi llave privada en mi PC_
+
+Todo esto lo conectamos por un protocolo nuevo, en vez de conectarnos al repositorio por __HTTPS__, vamos a conectarnos por un protocolo que se llama __SSH__.
+
+En la primera conección, GitHub se va a dar cuenta que le mandaste una llave publica que esta relacionada con tu llave privada y nos va a enviar cifrada con nuestra llave pública su propia llave pública de GitHub, porque GitHub también tiene una llave privada. Todo esto sucederá automaticamente, a la llave privada que nosotros tenemos se le puede hacer una contraseña encima para añadir más seguridad, hacerla mas fuerte y más poderosa.
+
+Las llaves __SSH__ no son por repositorio o por proyecto, si no que es por persona. Ahora vamos a crear unas llaves exclusivamente para nosotros.
+
+### Cómo configurar nuestras llaves SSH en local
+Comandos:
+- abrir git bash (Windows)
+- abrir terminal (Linux)
+- ``git config -l``
+- Recordamos nuestra configuración en Git, podemos hacer esto estando en la ruta de cualquier sitio en nuestro PC
+- ``git config --global user.email "alumnos@mail.com"``
+- Actualizamos el correo que usamos en GitHub
+- ``ssh-keygen -t rsa -b 4096 -C "alumnos@mail.com"``
+- Dira que esta generando la llave pública y privada. También nos preguntará dónde vamos a guardar la llave
+- Presionamos enter y nos va a pedir otra contraseña
+- ``eval $(ssh-agent -s)``
+- Encendemos el servidor de llaves SSH. Ya esta corriendo
+- ``~`` Se utiliza virgulilla para poner la ruta. Es una variable que tiene el nombre de nuestra carpeta home, esto para el siguiente comando
+- ``ssh-add ~/.ssh/id_ga35745`` Añadimos la llave, no la .pub. Ponemos la llave privada. Recordar que es una ruta, se debe poner el nombre de la carpeta que contiene la clave privada.
+
+### Cómo generar tus llaves SSH
+Recuerda que es muy buena idea proteger tu llave privada con una contraseña.
+- ``ssh-keygen -t rsa -b 4096 -C "tu@email.com"``
+- Terminar de configurar nuestro sistema.
+
+En Windows y Linux:
+- Encender el “servidor” de llaves SSH de tu computadora
+- ``eval $(ssh-agent -s)``
+- Añadir tu llave SSH a este “servidor”
+- ``ssh-add ruta-donde-guardaste-tu-llave-privada``
+
+En Mac:
+- Encender el “servidor” de llaves SSH de tu computadora
+- ``eval "$(ssh-agent -s)"``
+- Si usas una versión de OSX superior a Mac Sierra (v10.12), debes crear o modificar un archivo “config” en la carpeta de tu usuario con el siguiente contenido (ten cuidado con las mayúsculas): ``vim config``
+
+> Host *
+> 
+> AddKeysToAgent yes
+>
+> UseKeychain yes
+>
+> IdentityFile ruta-donde-guardaste-tu-llave-privada
+
+Añadir tu llave SSH al “servidor” de llaves SSH de tu computadora (en caso de error puedes ejecutar este mismo comando pero sin el argumento ``-K``):
+- ``ssh-add -K ruta-donde-guardaste-tu-llave-privada``
+
+### Segundo Factor de Autenticación (2FA)
+Este se puede hacer con varios dispositivos, y deberías hacerlo, ante el robo o perdida de un celular o ordenador, deberías tener un respaldo ante esto, este 2FA se puede hacer con diferentes generadores de códigos  de seguridad.
+
+### Añadir un 2FA
+1. Clic en nuestro perfil, arriba y a la derecha, seleccionamos...
+2. Settings
+3. Password and Authentication
+4. GitHub Mobile: GitHub Mobile can be used for two-factor authentication by installing the GitHub Mobile app and signing in to your account. -> GitHub Mobile se puede utilizar para la autenticación de 2FA instalando la aplicación GitHub Mobile e iniciando sesión en su cuenta.
+
+> Esto quiere decir que también se utiliza la app de GitHub donde al iniciar sesión desde cualquier dispositivo nos muestra un número que debemos ingresar en la app de nuestro dispositivo celular.
+
+5. Authenticator app: Edit
+
+Esto para agregar a través de un QR una app que genere cada 1 segundo nuevos códigos numéricos para la autenticación, yo recomiendo la aplicación __Twilio Authy Authenticator__
+<br>
+Es recomendable iniciar sesión, es decir registrarnos y guardar estos datos para que al cambiar un dispositivo sigamos teniendo acceso.
